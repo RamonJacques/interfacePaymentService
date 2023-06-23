@@ -26,6 +26,11 @@ public class Program {
 		
 		Contract contract = new Contract(number, date, totalValue);
 		
+		System.out.print("Enter the total number of installments: ");
+		int months = sc.nextInt();
+		
+		
+		
 		
 		sc.close();
 	}
