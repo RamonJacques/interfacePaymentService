@@ -23,12 +23,11 @@ public class ContractService {
 
 	public void processContract (Contract contract, Integer months) {
 		double amount = contract.getTotalValue()/months;
-		LocalDate dueDate = contract.getDate();
 		for (int i = 1; i <= months; i++) {
-			double auxAmount;
-			auxAmount = onlinePaymentService.interest(amount) * i + amount;
+			double auxAmount = amount;
+			LocalDate dueDate = contract.getDate().plusMonths(i);
+			auxAmount += onlinePaymentService.interest(amount, i);
 			auxAmount += onlinePaymentService.paymentFee(auxAmount);
-			dueDate = dueDate.plusMonths(1);
 			Installment installment = new Installment(dueDate, auxAmount);
 			contract.installments.add(installment);
 		}		
